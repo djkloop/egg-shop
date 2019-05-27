@@ -2,10 +2,10 @@
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
-import ExportTools from '../../../app/service/tools';
+import ExportAuth from '../../../app/middleware/auth';
 
 declare module 'egg' {
-  interface IService {
-    tools: ExportTools;
+  interface IMiddleware {
+    auth: typeof ExportAuth;
   }
 }

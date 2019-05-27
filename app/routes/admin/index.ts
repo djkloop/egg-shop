@@ -4,6 +4,10 @@ export default (app: Application) => {
   const { controller, router } = app;
   // admin
   router.get('/admin/login', controller.admin.login.index);
+  router.post('/admin/doLogin', controller.admin.login.doLogin);
+  router.get('/admin/loginOut', controller.admin.login.loginOut);
+
+  router.get('/admin/verify', controller.admin.login.verify);
   router.get('/admin/manager', controller.admin.manager.index);
   router.get('/admin/manager/add', controller.admin.manager.addManager);
   router.get('/admin/manager/update', controller.admin.manager.updateManager);

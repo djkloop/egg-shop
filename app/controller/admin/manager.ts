@@ -1,6 +1,6 @@
-import { Controller } from 'egg';
+import BaseController from './base';
 
-export default class ManagerController extends Controller {
+export default class ManagerController extends BaseController {
   /**
    * 管理员列表
    * @method index

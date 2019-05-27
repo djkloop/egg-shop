@@ -2,10 +2,10 @@
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
-import ExportTools from '../../../app/service/tools';
+import ExportAdmin from '../../../app/model/admin';
 
 declare module 'egg' {
-  interface IService {
-    tools: ExportTools;
+  interface IModel {
+    Admin: ReturnType<typeof ExportAdmin>;
   }
 }

@@ -8,7 +8,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1558881396113_1457';
 
   // add your egg config in here
-  config.middleware = [];
+  config.middleware = [ 'auth' ];
 
   // add your special config in here
   const bizConfig = {
@@ -19,7 +19,22 @@ export default (appInfo: EggAppInfo) => {
         '.nj': 'nunjucks',
       },
     },
-    sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
+    auth: {
+      match: '/admin',
+    },
+    mongoose: {
+      client: {
+        url: 'mongodb://eggadmin:123456@localhost:27017/eggcms',
+        options: {},
+      },
+    },
+  };
+
+  config.session = {
+    maxAge: 99999,
+    key: 'SESSION_SESSION',
+    httpOnly: true,
+    encrypt: true,
   };
 
   // the return config will combines to EggAppConfig

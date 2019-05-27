@@ -1,6 +1,6 @@
-import { Controller } from 'egg';
+import BaseController from './base';
 
-export default class RoleController extends Controller {
+export default class RoleController extends BaseController {
   /**
    * 角色列表
    * @method index
