@@ -1,0 +1,23 @@
+// This file is created by egg-ts-helper@1.25.3
+// Do not modify this file!!!!!!!!!
+
+import 'egg';
+import ExportAdminAccess from '../../../app/controller/admin/access';
+import ExportAdminLogin from '../../../app/controller/admin/login';
+import ExportAdminManager from '../../../app/controller/admin/manager';
+import ExportAdminRole from '../../../app/controller/admin/role';
+import ExportWebHome from '../../../app/controller/web/home';
+
+declare module 'egg' {
+  interface IController {
+    admin: {
+      access: ExportAdminAccess;
+      login: ExportAdminLogin;
+      manager: ExportAdminManager;
+      role: ExportAdminRole;
+    }
+    web: {
+      home: ExportWebHome;
+    }
+  }
+}
