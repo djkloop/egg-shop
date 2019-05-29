@@ -24,14 +24,14 @@ export default (appInfo: EggAppInfo) => {
     },
     mongoose: {
       client: {
-        url: 'mongodb://eggadmin:123456@localhost:27017/eggcms',
+        url: 'mongodb://eggxiaomi:123456@localhost:27017/eggxiaomi',
         options: {},
       },
     },
   };
 
   config.session = {
-    maxAge: 99999,
+    maxAge: 864000,
     key: 'SESSION_SESSION',
     httpOnly: true,
     encrypt: true,

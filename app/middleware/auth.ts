@@ -11,6 +11,7 @@ const WhiteUrlList = [
 export default function authMiddleWare(): any {
   return async (ctx: Context, next: () => Promise<any>) => {
     ctx.state.csrf = ctx.csrf;
+    ctx.state.prevPage = ctx.request.headers.referer;
     const pathUrl = url.parse(ctx.request.url).pathname;
     if (ctx.session.userInfo) {
       ctx.state.userInfo = ctx.session.userInfo;

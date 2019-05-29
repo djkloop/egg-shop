@@ -26,7 +26,6 @@ export default class RoleController extends BaseController {
        username,
        password,
       });
-      console.log(result);
       if (result.length > 0) {
         // 登陆成功
         ctx.session.userInfo = result[0];

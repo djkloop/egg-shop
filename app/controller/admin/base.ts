@@ -40,4 +40,11 @@ export default class BaseController extends Controller {
     this.ctx.body = captcha.data;
   }
 
+  public async remove() {
+    const { request } = this.ctx;
+    const { model, id } = request.query;
+    await this.ctx.model[model].deleteOne({ _id: id });
+    this.ctx.redirect(this.ctx.state.prevPage);
+  }
+
 }
