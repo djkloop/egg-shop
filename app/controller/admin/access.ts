@@ -23,7 +23,6 @@ export default class AccessController extends BaseController {
         },
       },
     ]);
-    console.log(result);
     await ctx.render('admin/access/index.ejs', {
       list: result,
     });
@@ -37,7 +36,6 @@ export default class AccessController extends BaseController {
   public async addAccess() {
     const { ctx } = this;
     const moduleResult = await ctx.model.Access.find({ module_id: '0' });
-    console.log(moduleResult);
     await ctx.render('admin/access/add.ejs', {
       moduleList: moduleResult,
     });
@@ -57,7 +55,7 @@ export default class AccessController extends BaseController {
     } else if (addResult.type === '1') {
       obj.module_name = addResult.module_name;
     }
-    if (addResult.module_id) {
+    if (addResult.module_id !== '0') {
       addResult.module_id = this.app.mongoose.Types.ObjectId(addResult.module_id);
     }
     // 判断用户是否存在
@@ -92,17 +90,28 @@ export default class AccessController extends BaseController {
    */
   public async updateAccess() {
     const { ctx } = this;
-    await ctx.render('admin/access/update.ejs');
+    const _id = ctx.request.query.id;
+    const accessResult = await ctx.model.Access.find({ _id });
+    const moduleResult = await ctx.model.Access.find({ module_id: '0' });
+    await ctx.render('admin/access/edit.ejs', {
+      list: accessResult[0],
+      moduleList: moduleResult,
+    });
   }
 
   /**
-   * 删除权限
-   * @method removeAccess
+   * 权限修改
+   *
    * @memberof AccessController
    */
-  public async removeAccess() {
+  public async doEdit() {
     const { ctx } = this;
-    await ctx.render('admin/access/remove.ejs');
+    const { id , ...restProps } = ctx.request.body;
+    if (restProps.module_id !== '0') {
+      restProps.module_id = this.app.mongoose.Types.ObjectId(restProps.module_id);
+    }
+    await ctx.model.Access.updateOne({ _id: id }, restProps);
+    await this.success('/admin/access', '编辑权限成功');
   }
 
 }

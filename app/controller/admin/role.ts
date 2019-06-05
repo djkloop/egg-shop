@@ -79,14 +79,42 @@ export default class RoleController extends BaseController {
     await this.success('/admin/role', '编辑角色成功');
   }
 
-  /**
-   * 删除角色
-   * @method removeRole
-   * @memberof RoleController
-   */
-  public async removeRole() {
+  public async auth() {
     const { ctx } = this;
-    await ctx.render('admin/role/remove.ejs');
+
+    /**
+     * 1. 获取全部的权限
+     *
+     * 2. 查询当前角色拥有的权限（查询当前觉得权限id）把查找到的数据放在数组中
+     *
+     * 3. 循环遍历所有的权限数据
+     *  1. 判断当前权限是否在角色权限的数组中
+     *  2. 如果在角色权限的数组中，选中，
+     *  3. 如果不在角色权限的数组中，不选中
+     */
+
+    const role_id = ctx.request.query.id;
+    const result = await this.service.admin.getAuthList(role_id);
+    await ctx.render('admin/role/auth.ejs', { list: result, role_id });
+  }
+
+  public async doAuth() {
+    const { ctx } = this;
+    const { role_id, access_node } = ctx.request.body;
+     // 1. 删除所有权限
+    await ctx.model.RoleAccess.deleteMany({ role_id });
+     // 2. 添加权限
+
+    // 给role_access增加数据
+    access_node.forEach(item => {
+      const roleAccessData = new ctx.model.RoleAccess({
+        role_id,
+        access_id: item,
+      });
+      roleAccessData.save();
+    });
+
+    await this.success('/admin/role/auth?id=' + role_id, '授权成功');
   }
 
 }

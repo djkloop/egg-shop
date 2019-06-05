@@ -2,10 +2,12 @@
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
+import ExportAdmin from '../../../app/service/admin';
 import ExportTools from '../../../app/service/tools';
 
 declare module 'egg' {
   interface IService {
+    admin: ExportAdmin;
     tools: ExportTools;
   }
 }

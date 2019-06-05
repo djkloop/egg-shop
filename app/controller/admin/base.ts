@@ -47,4 +47,38 @@ export default class BaseController extends Controller {
     this.ctx.redirect(this.ctx.state.prevPage);
   }
 
+  public async changeStatus() {
+    const { model, attr, id } = this.ctx.request.query;
+    const result = await this.ctx.model[model].find({ _id: id });
+    let json = {};
+    if (result.length > 0) {
+      if (result[0][attr] === 1) {
+        json = {
+          [attr]: 0,
+        };
+      } else {
+        json = {
+          [attr]: 1,
+        };
+      }
+      const updateResult = await this.ctx.model[model].updateOne({ _id: id }, json);
+      if (updateResult) {
+        this.ctx.body = {
+          message: '更新成功',
+          success: true,
+        };
+      } else {
+        this.ctx.body = {
+          message: '更新失败, 参数错误',
+          success: false,
+        };
+      }
+    } else {
+      this.ctx.body = {
+        message: '更新失败, 参数错误',
+        success: false,
+      };
+    }
+  }
+
 }

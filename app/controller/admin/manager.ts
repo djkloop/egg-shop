@@ -19,7 +19,6 @@ export default class ManagerController extends BaseController {
         },
       },
     ]);
-    console.log(JSON.stringify(result));
     await ctx.render('admin/manager/index.ejs', {
       result,
     });
@@ -93,16 +92,6 @@ export default class ManagerController extends BaseController {
     }
     await ctx.model.Admin.updateOne({ _id: body._id }, obj);
     await this.success('/admin/manager', '编辑管理员成功');
-  }
-
-  /**
-   * 删除管理员
-   * @method removeManager
-   * @memberof ManagerController
-   */
-  public async removeManager() {
-    const { ctx } = this;
-    ctx.body = '删除管理员';
   }
 
 }

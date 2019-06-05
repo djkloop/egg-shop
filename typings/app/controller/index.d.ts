@@ -7,6 +7,7 @@ import ExportAdminBase from '../../../app/controller/admin/base';
 import ExportAdminLogin from '../../../app/controller/admin/login';
 import ExportAdminManager from '../../../app/controller/admin/manager';
 import ExportAdminRole from '../../../app/controller/admin/role';
+import ExportAdminUpload from '../../../app/controller/admin/upload';
 import ExportWebHome from '../../../app/controller/web/home';
 
 declare module 'egg' {
@@ -17,6 +18,7 @@ declare module 'egg' {
       login: ExportAdminLogin;
       manager: ExportAdminManager;
       role: ExportAdminRole;
+      upload: ExportAdminUpload;
     }
     web: {
       home: ExportWebHome;
